@@ -1,0 +1,10 @@
+{
+  "source": {
+    "docker_user":"firespring",
+    "docker_repo":"concourse-s3-sync-resource",
+    "access_key_id": "",
+    "secret_access_key": "",
+    "bucket": "",
+    "options": []
+  }
+}

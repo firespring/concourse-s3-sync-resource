@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+dest=$1
+
+if [ -z "$dest" ]; then
+  echo "usage: $0 </full/path/to/dest>"
+  exit 1
+fi
+
+json=$(cat ../config.json)
+docker_user=$(echo "$json" | jq -r '.source.docker_user')
+docker_repo=$(echo "$json" | jq -r '.source.docker_repo')
+
+source "$(dirname $0)/build.sh"
+
+echo $json | docker run \
+  -i \
+  --rm \
+  -v $dest:/tmp/output \
+  "${docker_user}/${docker_repo}" \
+  /opt/resource/in /tmp/output

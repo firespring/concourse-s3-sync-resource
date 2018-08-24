@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+json=$(cat ../config.json)
+
+docker_user=$(echo "$json" | jq -r '.source.docker_user')
+docker_repo=$(echo "$json" | jq -r '.source.docker_repo')
+source "$(dirname $0)/build.sh"
+echo $json | docker run \
+  -i \
+  --rm \
+  "${docker_user}/${docker_repo}" \
+  /opt/resource/check
