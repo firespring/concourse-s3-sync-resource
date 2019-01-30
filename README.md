@@ -26,6 +26,9 @@ jobs:
   plan:
   - <some Resource or Task that outputs files>
   - put: <resource name>
+  - put: to-s3
+    get_params: [<optional>, use to not download the contents of the bucket.]
+      skip_download: true
 ```
 
 ## AWS Credentials
