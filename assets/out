@@ -19,6 +19,7 @@ payload=`cat`
 bucket=$(echo "$payload" | jq -r '.source.bucket')
 directory=$(echo "$payload" | jq -r '.source.directory // ""')
 path=$(echo "$payload" | jq -r '.source.path // ""')
+source_bucket=$(echo "$payload" | jq -r '.source.source_bucket // ""')
 options=$(echo "$payload" | jq -r '.source.options // [] | join(" ")')
 
 # export for `aws` cli
@@ -35,10 +36,17 @@ fi
 # Export AWS_DEFAULT_REGION if set
 [ -n "$AWS_DEFAULT_REGION" ] && export AWS_DEFAULT_REGION
 
+if [ -n "$source_bucket" ]; then
+  # sync to resource path
+  sync_path="$source"
+else
+  # sync from s3 bucket
+  sync_path="s3://$source_bucket"
+fi
+
 # Sync the source directory, if directory is unset
-sync_path=$source
 if [ -n "$directory" ]; then
-  sync_path="$source/$directory"
+  sync_path="$sync_path/$directory"
 fi
 
 echo "Uploading to S3..."
