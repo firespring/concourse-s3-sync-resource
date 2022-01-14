@@ -37,11 +37,11 @@ fi
 [ -n "$AWS_DEFAULT_REGION" ] && export AWS_DEFAULT_REGION
 
 if [ -n "$source_bucket" ]; then
-  # sync to resource path
-  sync_path="$source"
-else
   # sync from s3 bucket
   sync_path="s3://$source_bucket"
+else
+  # sync to resource path
+  sync_path="$source"
 fi
 
 # Sync the source directory, if directory is unset
