@@ -36,6 +36,8 @@ fi
 # Export AWS_DEFAULT_REGION if set
 [ -n "$AWS_DEFAULT_REGION" ] && export AWS_DEFAULT_REGION
 
+echo "Source bucket is $source_bucket and payload is $payload"
+
 if [ -n "$source_bucket" ]; then
   # sync from s3 bucket
   sync_path="s3://$source_bucket"
