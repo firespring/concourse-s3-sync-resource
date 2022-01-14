@@ -35,6 +35,7 @@ fi
 [ -n "$AWS_DEFAULT_REGION" ] && export AWS_DEFAULT_REGION
 
 echo "Downloading from S3..."
+echo "aws s3 sync \"s3://$bucket/$path\" $dest $options"
 eval aws s3 sync "s3://$bucket/$path" $dest $options
 echo "...done."
 
